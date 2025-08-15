@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>กิจกรรมหัตถกรรมไทย - ประดิษฐ์โคมไฟเรซิ่น</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Kanit', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #feca57 75%, #ff6b6b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient 5s ease infinite;
+            background-size: 400% 400%;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.8s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes glow {
+            from { box-shadow: 0 0 10px #feca57, 0 0 20px #feca57; }
+            to { box-shadow: 0 0 20px #ff6b6b, 0 0 30px #ff6b6b; }
+        }
+        
+        .dark {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+        
+        .light {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 50%, #e17055 100%);
+        }
+        
+        .lamp-icon {
+            filter: drop-shadow(0 0 15px rgba(255, 206, 84, 0.8));
+            animation: lampGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes lampGlow {
+            0%, 100% { filter: drop-shadow(0 0 15px rgba(255, 206, 84, 0.8)); }
+            50% { filter: drop-shadow(0 0 30px rgba(255, 206, 84, 1)); }
+        }
+        
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .qr-container {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        
+        .bounce {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-7px); }
+        }
+    </style>
+</head>
+<body class="min-h-screen transition-all duration-500 light" id="body">
+    <!-- Theme Toggle Button -->
+    <div class="fixed top-4 right-4 z-50">
+        <button onclick="toggleTheme()" class="bg-white/20 backdrop-blur-md p-3 rounded-full shadow-lg hover:scale-110 transition-transform duration-300">
+            <i id="themeIcon" class="fas fa-moon text-2xl text-yellow-400"></i>
+        </button>
+    </div>
+    
+    <!-- Main Container -->
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Header Section -->
+        <header class="text-center mb-12 slide-in">
+            <div class="inline-block mb-6">
+                <i class="fas fa-lightbulb text-6xl md:text-8xl lamp-icon text-yellow-400"></i>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 gradient-text">
+                กิจกรรมหัตถกรรมไทย
+            </h1>
+            <h2 class="text-2xl md:text-4xl font-semibold text-white mb-2">
+                🎨 ประดิษฐ์โคมไฟเรซิ่น 🎨
+            </h2>
+            <p class="text-lg md:text-xl text-white/90 pulse-animation">
+                สร้างสรรค์ผลงานศิลปะด้วยมือคุณ
+            </p>
+        </header>
+        
+        <!-- Announcement Card -->
+        <div class="bg-white/10 backdrop-blur-md rounded-3xl p-6 md:p-10 mb-8 slide-in shadow-2xl border border-white/20">
+            <div class="text-center mb-8">
+                <span class="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full text-lg font-semibold mb-4 bounce">
+                    📢 เปิดรับสมัครแล้ววันนี้!
+                </span>
+            </div>
+            
+            <!-- Info Grid -->
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <!-- Registration Period -->
+                <div class="bg-white/10 rounded-2xl p-6 hover:scale-105 transition-transform duration-300">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-calendar-alt text-3xl text-blue-400 mr-4"></i>
+                        <h3 class="text-xl font-semibold text-white">ระยะเวลารับสมัคร</h3>
+                    </div>
+                    <p class="text-lg text-white/90">
+                        📅 15 - 22 สิงหาคม 2568
+                    </p>
+                    <div class="mt-4">
+                        <span class="inline-block bg-green-500/30 text-green-300 px-4 py-1 rounded-full text-sm">
+                            <i class="fas fa-circle text-green-400 mr-2 animate-pulse"></i>
+                            กำลังเปิดรับสมัคร
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- Event Date -->
+                <div class="bg-white/10 rounded-2xl p-6 hover:scale-105 transition-transform duration-300">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-star text-3xl text-yellow-400 mr-4"></i>
+                        <h3 class="text-xl font-semibold text-white">วันจัดกิจกรรม</h3>
+                    </div>
+                    <p class="text-lg text-white/90">
+                        🎉 31 สิงหาคม 2568
+                    </p>
+                    <div class="mt-4">
+                        <span class="inline-block bg-purple-500/30 text-purple-300 px-4 py-1 rounded-full text-sm">
+                            <i class="fas fa-clock mr-2"></i>
+                            เร็วๆ นี้
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Location -->
+            <div class="bg-white/10 rounded-2xl p-6 mb-8 hover:shadow-xl transition-shadow duration-300">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-map-marker-alt text-3xl text-red-400 mr-4 bounce"></i>
+                    <h3 class="text-xl font-semibold text-white">สถานที่จัดกิจกรรม</h3>
+                </div>
+                <p class="text-lg text-white/90">
+                    📍 ศูนย์เยาวชนกรุงเทพมหานคร (ไทย-ญี่ปุ่น)
+                </p>
+            </div>
+            
+            <!-- Activity Details -->
+            <div class="bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-2xl p-6 mb-8 border border-purple-400/30">
+                <h3 class="text-2xl font-semibold text-white mb-4 text-center">
+                    ✨ รายละเอียดกิจกรรม ✨
+                </h3>
+                <div class="space-y-3 text-white/90">
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
+                        <p>ประดิษฐ์โคมไฟเรซิ่นด้วยตัวอักษรภาษาอังกฤษ</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
+                        <p>เลือกตัวอักษรได้ไม่เกิน 4 ตัว</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
+                        <p>ระบุตัวอักษรที่ต้องการในแบบฟอร์มสมัคร</p>
+                    </div>
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle text-green-400 mt-1 mr-3"></i>
+                        <p>ได้รับผลงานโคมไฟเรซิ่นสวยงามกลับบ้าน</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Countdown Timer -->
+            <div class="mb-8">
+                <h3 class="text-2xl font-semibold text-white text-center mb-6">
+                    ⏰ นับถอยหลังถึงวันจัดกิจกรรม
+                </h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4" id="countdown">
+                    <div class="countdown-item rounded-xl p-4 text-center">
+                        <div class="text-3xl font-bold text-white" id="days">0</div>
+                        <div class="text-sm text-white/80">วัน</div>
+                    </div>
+                    <div class="countdown-item rounded-xl p-4 text-center">
+                        <div class="text-3xl font-bold text-white" id="hours">0</div>
+                        <div class="text-sm text-white/80">ชั่วโมง</div>
+                    </div>
+                    <div class="countdown-item rounded-xl p-4 text-center">
+                        <div class="text-3xl font-bold text-white" id="minutes">0</div>
+                        <div class="text-sm text-white/80">นาที</div>
+                    </div>
+                    <div class="countdown-item rounded-xl p-4 text-center">
+                        <div class="text-3xl font-bold text-white" id="seconds">0</div>
+                        <div class="text-sm text-white/80">วินาที</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sample Image -->
+            <div class="mb-8 text-center">
+                <h3 class="text-2xl font-semibold text-white mb-6">
+                    🖼️ ตัวอย่างผลงาน
+                </h3>
+                <div class="inline-block rounded-2xl overflow-hidden shadow-2xl hover:scale-105 transition-transform duration-300">
+                    <img src="https://lh5.googleusercontent.com/d/125ANXb0_14sJWKFnmEyDjM88ypDc6vQU" 
+                         alt="ตัวอย่างโคมไฟเรซิ่น" 
+                         class="w-full max-w-md mx-auto"
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'300\' viewBox=\'0 0 400 300\'%3E%3Crect fill=\'%23ddd\' width=\'400\' height=\'300\'/%3E%3Ctext fill=\'%23999\' font-family=\'sans-serif\' font-size=\'20\' x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\'%3Eตัวอย่างผลงานโคมไฟเรซิ่น%3C/text%3E%3C/svg%3E'">
+                </div>
+            </div>
+            
+            <!-- QR Code Section -->
+            <div class="text-center">
+                <h3 class="text-2xl font-semibold text-white mb-6">
+                    📱 สแกน QR Code เพื่อสมัคร
+                </h3>
+                <div class="qr-container mx-auto hover:scale-110 transition-transform duration-300 glow">
+                    <div class="bg-gradient-to-br from-purple-600 to-pink-600 p-1 rounded-lg">
+                        <div class="bg-white p-4 rounded-lg">
+                            <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Simplified QR Code Pattern -->
+                                <rect width="200" height="200" fill="white"/>
+                                <g fill="black">
+                                    <!-- Corner Squares -->
+                                    <rect x="10" y="10" width="60" height="60"/>
+                                    <rect x="20" y="20" width="40" height="40" fill="white"/>
+                                    <rect x="30" y="30" width="20" height="20"/>
+                                    
+                                    <rect x="130" y="10" width="60" height="60"/>
+                                    <rect x="140" y="20" width="40" height="40" fill="white"/>
+                                    <rect x="150" y="30" width="20" height="20"/>
+                                    
+                                    <rect x="10" y="130" width="60" height="60"/>
+                                    <rect x="20" y="140" width="40" height="40" fill="white"/>
+                                    <rect x="30" y="150" width="20" height="20"/>
+                                    
+                                    <!-- Center Pattern -->
+                                    <rect x="85" y="85" width="30" height="30"/>
+                                    <rect x="90" y="90" width="20" height="20" fill="white"/>
+                                    <rect x="95" y="95" width="10" height="10"/>
+                                    
+                                    <!-- Random Pattern -->
+                                    <rect x="75" y="15" width="10" height="10"/>
+                                    <rect x="90" y="25" width="10" height="10"/>
+                                    <rect x="105" y="15" width="10" height="10"/>
+                                    <rect x="15" y="85" width="10" height="10"/>
+                                    <rect x="35" y="95" width="10" height="10"/>
+                                    <rect x="55" y="85" width="10" height="10"/>
+                                    <rect x="135" y="85" width="10" height="10"/>
+                                    <rect x="155" y="95" width="10" height="10"/>
+                                    <rect x="175" y="85" width="10" height="10"/>
+                                    <rect x="85" y="135" width="10" height="10"/>
+                                    <rect x="95" y="155" width="10" height="10"/>
+                                    <rect x="85" y="175" width="10" height="10"/>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-white/80 mt-4">
+                    หรือคลิกปุ่มด้านล่างเพื่อสมัคร
+                </p>
+            </div>
+            
+            <!-- CTA Button -->
+            <div class="text-center mt-8">
+                <button onclick="register()" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-2xl float-animation">
+                    <i class="fas fa-hand-point-right mr-2"></i>
+                    สมัครเข้าร่วมกิจกรรม
+                    <i class="fas fa-hand-point-left ml-2"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer class="text-center text-white/70 py-6">
+            <p class="mb-2">
+                <i class="fas fa-heart text-red-500 animate-pulse"></i>
+                จัดทำด้วยความตั้งใจเพื่อส่งเสริมศิลปะและหัตถกรรมไทย
+            </p>
+            <p class="text-sm">
+                © 2568 กิจกรรมหัตถกรรมไทย - ศูนย์เยาวชนกรุงเทพมหานคร
+            </p>
+        </footer>
+    </div>
+    
+    <!-- Floating Elements -->
+    <div class="fixed bottom-4 left-4 hidden md:block">
+        <div class="bg-white/10 backdrop-blur-md rounded-full p-4 shadow-lg float-animation">
+            <i class="fas fa-palette text-3xl text-pink-400"></i>
+        </div>
+    </div>
+    
+    <div class="fixed top-1/2 right-4 hidden md:block">
+        <div class="bg-white/10 backdrop-blur-md rounded-full p-4 shadow-lg float-animation" style="animation-delay: 1s;">
+            <i class="fas fa-brush text-3xl text-purple-400"></i>
+        </div>
+    </div>
+    
+    <script>
+        // Theme Toggle
+        let isDark = false;
+        function toggleTheme() {
+            const body = document.getElementById('body');
+            const icon = document.getElementById('themeIcon');
+            isDark = !isDark;
+            
+            if (isDark) {
+                body.classList.remove('light');
+                body.classList.add('dark');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                icon.classList.remove('text-yellow-400');
+                icon.classList.add('text-yellow-300');
+            } else {
+                body.classList.remove('dark');
+                body.classList.add('light');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                icon.classList.remove('text-yellow-300');
+                icon.classList.add('text-yellow-400');
+            }
+        }
+        
+        // Countdown Timer
+        function updateCountdown() {
+            const eventDate = new Date('2025-08-31T09:00:00');
+            const now = new Date();
+            const difference = eventDate - now;
+            
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = days;
+                document.getElementById('hours').textContent = hours;
+                document.getElementById('minutes').textContent = minutes;
+                document.getElementById('seconds').textContent = seconds;
+            } else {
+                document.getElementById('countdown').innerHTML = '<div class="col-span-4 text-2xl text-white">กิจกรรมเริ่มแล้ว!</div>';
+            }
+        }
+        
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+        
+        // Register Function
+        function register() {
+            alert('🎉 กำลังนำคุณไปยังแบบฟอร์มการสมัคร Google Form...\n\nกรุณาแจ้งตัวอักษรภาษาอังกฤษที่ต้องการ (ไม่เกิน 4 ตัว) ในแบบฟอร์ม');
+            // Redirect to Google Form or open in new tab
+            // window.open('YOUR_GOOGLE_FORM_URL', '_blank');
+        }
+        
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('slide-in');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.bg-white\\/10').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Particle effect on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            document.querySelectorAll('.float-animation').forEach(el => {
+                const speed = el.getAttribute('data-speed') || 1;
+                const xMove = (x - 0.5) * speed * 20;
+                const yMove = (y - 0.5) * speed * 20;
+                el.style.transform = `translate(${xMove}px, ${yMove}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
