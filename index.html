@@ -96,9 +96,14 @@
         
         .qr-container {
             background: white;
-            padding: 20px;
+            padding: 15px;
             border-radius: 20px;
             display: inline-block;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .qr-container img {
+            border-radius: 10px;
         }
         
         .bounce {
@@ -144,6 +149,14 @@
                 <span class="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full text-lg font-semibold mb-4 bounce">
                     📢 เปิดรับสมัครแล้ววันนี้!
                 </span>
+                
+                <!-- Registration Deadline Alert -->
+                <div id="deadlineAlert" class="mt-4 bg-red-500/20 border border-red-400 rounded-xl p-3 hidden">
+                    <p class="text-red-300 font-semibold">
+                        <i class="fas fa-exclamation-triangle mr-2 animate-pulse"></i>
+                        ใกล้ปิดรับสมัครแล้ว! เหลือเวลาอีก <span id="daysLeft"></span> วัน
+                    </p>
+                </div>
             </div>
             
             <!-- Info Grid -->
@@ -157,11 +170,15 @@
                     <p class="text-lg text-white/90">
                         📅 15 - 22 สิงหาคม 2568
                     </p>
-                    <div class="mt-4">
+                    <div class="mt-4 space-y-2">
                         <span class="inline-block bg-green-500/30 text-green-300 px-4 py-1 rounded-full text-sm">
                             <i class="fas fa-circle text-green-400 mr-2 animate-pulse"></i>
                             กำลังเปิดรับสมัคร
                         </span>
+                        <div class="text-sm text-white/70">
+                            <i class="fas fa-users mr-2"></i>
+                            <span id="registrantCount">มีผู้สนใจสมัครแล้ว 47 คน</span>
+                        </div>
                     </div>
                 </div>
                 
@@ -263,47 +280,10 @@
                     📱 สแกน QR Code เพื่อสมัคร
                 </h3>
                 <div class="qr-container mx-auto hover:scale-110 transition-transform duration-300 glow">
-                    <div class="bg-gradient-to-br from-purple-600 to-pink-600 p-1 rounded-lg">
-                        <div class="bg-white p-4 rounded-lg">
-                            <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
-                                <!-- Simplified QR Code Pattern -->
-                                <rect width="200" height="200" fill="white"/>
-                                <g fill="black">
-                                    <!-- Corner Squares -->
-                                    <rect x="10" y="10" width="60" height="60"/>
-                                    <rect x="20" y="20" width="40" height="40" fill="white"/>
-                                    <rect x="30" y="30" width="20" height="20"/>
-                                    
-                                    <rect x="130" y="10" width="60" height="60"/>
-                                    <rect x="140" y="20" width="40" height="40" fill="white"/>
-                                    <rect x="150" y="30" width="20" height="20"/>
-                                    
-                                    <rect x="10" y="130" width="60" height="60"/>
-                                    <rect x="20" y="140" width="40" height="40" fill="white"/>
-                                    <rect x="30" y="150" width="20" height="20"/>
-                                    
-                                    <!-- Center Pattern -->
-                                    <rect x="85" y="85" width="30" height="30"/>
-                                    <rect x="90" y="90" width="20" height="20" fill="white"/>
-                                    <rect x="95" y="95" width="10" height="10"/>
-                                    
-                                    <!-- Random Pattern -->
-                                    <rect x="75" y="15" width="10" height="10"/>
-                                    <rect x="90" y="25" width="10" height="10"/>
-                                    <rect x="105" y="15" width="10" height="10"/>
-                                    <rect x="15" y="85" width="10" height="10"/>
-                                    <rect x="35" y="95" width="10" height="10"/>
-                                    <rect x="55" y="85" width="10" height="10"/>
-                                    <rect x="135" y="85" width="10" height="10"/>
-                                    <rect x="155" y="95" width="10" height="10"/>
-                                    <rect x="175" y="85" width="10" height="10"/>
-                                    <rect x="85" y="135" width="10" height="10"/>
-                                    <rect x="95" y="155" width="10" height="10"/>
-                                    <rect x="85" y="175" width="10" height="10"/>
-                                </g>
-                            </svg>
-                        </div>
-                    </div>
+                    <img src="https://lh5.googleusercontent.com/d/1pRtrDqCpAdk-XBB65rl44JuThnmfhVa3" 
+                         alt="QR Code สมัครกิจกรรม" 
+                         class="w-48 h-48 md:w-64 md:h-64"
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'200\' height=\'200\' viewBox=\'0 0 200 200\'%3E%3Crect fill=\'%23fff\' width=\'200\' height=\'200\'/%3E%3Ctext fill=\'%23999\' font-family=\'sans-serif\' font-size=\'14\' x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dominant-baseline=\'middle\'%3EQR Code%3C/text%3E%3C/svg%3E'">
                 </div>
                 <p class="text-white/80 mt-4">
                     หรือคลิกปุ่มด้านล่างเพื่อสมัคร
@@ -317,6 +297,45 @@
                     สมัครเข้าร่วมกิจกรรม
                     <i class="fas fa-hand-point-left ml-2"></i>
                 </button>
+            </div>
+        </div>
+        
+        <!-- Google Form Embed Section -->
+        <div class="bg-white/10 backdrop-blur-md rounded-3xl p-6 md:p-10 mb-8 slide-in shadow-2xl border border-white/20">
+            <h3 class="text-2xl md:text-3xl font-bold text-white text-center mb-6 gradient-text">
+                📝 แบบฟอร์มสมัครเข้าร่วมกิจกรรม
+            </h3>
+            
+            <!-- Toggle buttons for form display -->
+            <div class="text-center mb-6">
+                <button onclick="toggleForm()" id="formToggleBtn" class="bg-gradient-to-r from-green-500 to-blue-500 text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition-all duration-300 shadow-lg">
+                    <i class="fas fa-eye mr-2"></i>
+                    แสดงแบบฟอร์ม
+                </button>
+            </div>
+            
+            <!-- Embedded Google Form -->
+            <div id="formContainer" class="hidden">
+                <div class="bg-white rounded-2xl p-2 shadow-2xl">
+                    <iframe 
+                        src="https://docs.google.com/forms/d/e/1FAIpQLScu7B2KJ6wDg9eY7qvHGSnHwN-ET1Mc43zZLCxLu_UVMuXVPg/viewform?embedded=true" 
+                        width="100%" 
+                        height="800" 
+                        frameborder="0" 
+                        marginheight="0" 
+                        marginwidth="0"
+                        class="rounded-xl">
+                        กำลังโหลด...
+                    </iframe>
+                </div>
+                <div class="text-center mt-4">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScu7B2KJ6wDg9eY7qvHGSnHwN-ET1Mc43zZLCxLu_UVMuXVPg/viewform" 
+                       target="_blank" 
+                       class="text-white/80 hover:text-white underline">
+                        <i class="fas fa-external-link-alt mr-2"></i>
+                        เปิดแบบฟอร์มในหน้าต่างใหม่
+                    </a>
+                </div>
             </div>
         </div>
         
@@ -345,7 +364,90 @@
         </div>
     </div>
     
+    <!-- Mobile Floating Action Button -->
+    <div class="fixed bottom-6 right-6 md:hidden z-40">
+        <button onclick="register()" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-all duration-300 pulse-animation">
+            <i class="fas fa-edit text-xl"></i>
+        </button>
+        <div class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center animate-bounce">
+            <span>New</span>
+        </div>
+    </div>
+    
+    <!-- Welcome Notification -->
+    <div id="welcomeNotification" class="fixed top-20 right-4 z-50 max-w-sm bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl p-6 transform translate-x-full transition-transform duration-500">
+        <button onclick="closeNotification()" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="flex items-center mb-3">
+            <i class="fas fa-bell text-3xl text-purple-600 mr-3 animate-bounce"></i>
+            <h4 class="text-lg font-bold text-gray-800">ยินดีต้อนรับ!</h4>
+        </div>
+        <p class="text-gray-700 text-sm mb-3">
+            🎨 กิจกรรมหัตถกรรมไทย ประดิษฐ์โคมไฟเรซิ่น กำลังเปิดรับสมัคร จำกัดจำนวนผู้เข้าร่วม
+        </p>
+        <button onclick="register(); closeNotification();" class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-2 rounded-full text-sm font-semibold hover:scale-105 transition-transform">
+            สมัครเลย!
+        </button>
+    </div>
+    
     <script>
+        // Store notification state in memory
+        let notificationShown = false;
+        
+        // Show welcome notification after 2 seconds
+        setTimeout(() => {
+            const notification = document.getElementById('welcomeNotification');
+            if (notification && !notificationShown) {
+                notification.style.transform = 'translateX(0)';
+                notificationShown = true;
+                
+                // Auto close after 10 seconds
+                setTimeout(() => {
+                    closeNotification();
+                }, 10000);
+            }
+        }, 2000);
+        
+        function closeNotification() {
+            const notification = document.getElementById('welcomeNotification');
+            if (notification) {
+                notification.style.transform = 'translateX(110%)';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 500);
+            }
+        }
+    </script>
+        // Simulate registrant count
+        function updateRegistrantCount() {
+            const baseCount = 47;
+            const randomAdd = Math.floor(Math.random() * 5);
+            const count = baseCount + randomAdd;
+            const element = document.getElementById('registrantCount');
+            if (element) {
+                element.textContent = `มีผู้สนใจสมัครแล้ว ${count} คน`;
+            }
+        }
+        
+        // Update registrant count every 30 seconds
+        setInterval(updateRegistrantCount, 30000);
+        
+        // Check Registration Deadline
+        function checkDeadline() {
+            const deadline = new Date('2025-08-22T23:59:59');
+            const now = new Date();
+            const difference = deadline - now;
+            const daysLeft = Math.ceil(difference / (1000 * 60 * 60 * 24));
+            
+            if (daysLeft > 0 && daysLeft <= 3) {
+                document.getElementById('deadlineAlert').classList.remove('hidden');
+                document.getElementById('daysLeft').textContent = daysLeft;
+            }
+        }
+        
+        checkDeadline();
+        
         // Theme Toggle
         let isDark = false;
         function toggleTheme() {
@@ -396,9 +498,29 @@
         
         // Register Function
         function register() {
-            alert('🎉 กำลังนำคุณไปยังแบบฟอร์มการสมัคร Google Form...\n\nกรุณาแจ้งตัวอักษรภาษาอังกฤษที่ต้องการ (ไม่เกิน 4 ตัว) ในแบบฟอร์ม');
-            // Redirect to Google Form or open in new tab
-            // window.open('YOUR_GOOGLE_FORM_URL', '_blank');
+            window.open('https://docs.google.com/forms/d/e/1FAIpQLScu7B2KJ6wDg9eY7qvHGSnHwN-ET1Mc43zZLCxLu_UVMuXVPg/viewform', '_blank');
+        }
+        
+        // Toggle Form Display
+        let formVisible = false;
+        function toggleForm() {
+            const formContainer = document.getElementById('formContainer');
+            const toggleBtn = document.getElementById('formToggleBtn');
+            formVisible = !formVisible;
+            
+            if (formVisible) {
+                formContainer.classList.remove('hidden');
+                toggleBtn.innerHTML = '<i class="fas fa-eye-slash mr-2"></i>ซ่อนแบบฟอร์ม';
+                toggleBtn.classList.remove('from-green-500', 'to-blue-500');
+                toggleBtn.classList.add('from-red-500', 'to-orange-500');
+                // Smooth scroll to form
+                formContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                formContainer.classList.add('hidden');
+                toggleBtn.innerHTML = '<i class="fas fa-eye mr-2"></i>แสดงแบบฟอร์ม';
+                toggleBtn.classList.remove('from-red-500', 'to-orange-500');
+                toggleBtn.classList.add('from-green-500', 'to-blue-500');
+            }
         }
         
         // Add scroll animations
